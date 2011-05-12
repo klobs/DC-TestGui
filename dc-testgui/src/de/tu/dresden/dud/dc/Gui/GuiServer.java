@@ -22,8 +22,13 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import de.tu.dresden.dud.dc.Connection;
 import de.tu.dresden.dud.dc.KeyExchangeManager;
@@ -60,6 +65,10 @@ public class GuiServer extends javax.swing.JPanel implements Observer{
 	private DefaultComboBoxModel outputListModel;
 	private JButton toggleServerButton;
 	private AbstractAction actionToggleServer;
+	private JScrollPane jScrollPane2;
+	private JTable tableActiveParts;
+	private JScrollPane jScrollPane1;
+	private JTable tablePassiveParts;
 	private JRadioButton jRadioButtonTimeout3000;
 	private JRadioButton jRadioButtonTimeout1000;
 	private JRadioButton jRadioButtonTimeout0;
@@ -164,24 +173,29 @@ public class GuiServer extends javax.swing.JPanel implements Observer{
 				
 			}
 				thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
-					.addContainerGap()
+					.addContainerGap(12, 12)
 					.addComponent(getJPanel1(), GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-					.addComponent(toggleServerButton, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(toggleServerButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 					.addComponent(getJPanel3(), GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(235, Short.MAX_VALUE));
-				thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
-					.addContainerGap()
+					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 					.addGroup(thisLayout.createParallelGroup()
+					    .addComponent(getJScrollPane1(), GroupLayout.Alignment.LEADING, 0, 217, Short.MAX_VALUE)
+					    .addComponent(getJScrollPane2(), GroupLayout.Alignment.LEADING, 0, 217, Short.MAX_VALUE))
+					.addContainerGap(12, 12));
+				thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
+					.addContainerGap(12, 12)
+					.addGroup(thisLayout.createParallelGroup()
+					    .addComponent(getJPanel1(), GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 861, GroupLayout.PREFERRED_SIZE)
+					    .addComponent(toggleServerButton, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 861, GroupLayout.PREFERRED_SIZE)
+					    .addComponent(getJPanel3(), GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 861, GroupLayout.PREFERRED_SIZE)
 					    .addGroup(thisLayout.createSequentialGroup()
-					        .addComponent(getJPanel1(), GroupLayout.PREFERRED_SIZE, 861, GroupLayout.PREFERRED_SIZE)
-					        .addGap(0, 0, Short.MAX_VALUE))
-					    .addGroup(thisLayout.createSequentialGroup()
-					        .addComponent(toggleServerButton, GroupLayout.PREFERRED_SIZE, 861, GroupLayout.PREFERRED_SIZE)
-					        .addGap(0, 0, Short.MAX_VALUE))
-					    .addComponent(getJPanel3(), GroupLayout.Alignment.LEADING, 0, 861, Short.MAX_VALUE))
-					.addContainerGap());
+					        .addComponent(getJScrollPane1(), 0, 250, Short.MAX_VALUE)
+					        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+					        .addComponent(getJScrollPane2(), 0, 259, Short.MAX_VALUE)
+					        .addGap(346)))
+					.addContainerGap(12, 12));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -217,6 +231,20 @@ public class GuiServer extends javax.swing.JPanel implements Observer{
 					for (int a = 0; a < com.length; a++) {
 						com[a].setEnabled(true);
 					}
+					
+					getTableActiveParts().setModel(
+							new GuiParticipantActiveParticipantListModel(assocServer.getParticipantManager()));
+					getTableActiveParts().getColumnModel().getColumn(0).setHeaderValue(new String("Key"));
+					getTableActiveParts().getColumnModel().getColumn(1).setHeaderValue(new String("Name"));
+					getTableActiveParts().getColumnModel().getColumn(2).setHeaderValue(new String("Fingerprint"));
+					
+					getTablePassiveParts().setModel(
+							new GuiParticipantPassiveParticipantListModel(assocServer.getParticipantManager()));
+					getTablePassiveParts().getColumnModel().getColumn(0).setHeaderValue(new String("Key"));
+					getTablePassiveParts().getColumnModel().getColumn(1).setHeaderValue(new String("Name"));
+					getTablePassiveParts().getColumnModel().getColumn(2).setHeaderValue(new String("Fingerprint"));
+					
+					
 					
 					this.setEnabled(false);
 				}
@@ -441,5 +469,39 @@ public class GuiServer extends javax.swing.JPanel implements Observer{
 			jRadioButtonTimeout3000.setPreferredSize(new java.awt.Dimension(156,23));
 		}
 		return jRadioButtonTimeout3000;
+	}
+	
+	private JTable getTablePassiveParts() {
+		if(tablePassiveParts == null) {
+			tablePassiveParts = new JTable();
+			tablePassiveParts
+					.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		}
+		return tablePassiveParts;
+	}
+	
+	private JScrollPane getJScrollPane1() {
+		if(jScrollPane1 == null) {
+			jScrollPane1 = new JScrollPane();
+			jScrollPane1.setViewportView(getTablePassiveParts());
+		}
+		return jScrollPane1;
+	}
+	
+	private JTable getTableActiveParts() {
+		if(tableActiveParts == null) {
+			tableActiveParts = new JTable();
+			tableActiveParts
+					.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		}
+		return tableActiveParts;
+	}
+	
+	private JScrollPane getJScrollPane2() {
+		if(jScrollPane2 == null) {
+			jScrollPane2 = new JScrollPane();
+			jScrollPane2.setViewportView(getTableActiveParts());
+		}
+		return jScrollPane2;
 	}
 }
