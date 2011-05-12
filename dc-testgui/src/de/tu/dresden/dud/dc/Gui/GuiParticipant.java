@@ -146,7 +146,7 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 
 		public void keyPressed(KeyEvent e) {
 			if (e.getKeyChar() == KeyEvent.VK_ENTER)
-				getJoinWorkCycleAction().actionPerformed(null);
+				getActionJoinWorkCycle().actionPerformed(null);
 		}
 
 		public void keyReleased(KeyEvent e) {
@@ -160,7 +160,7 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 
 		public void keyPressed(KeyEvent e) {
 			if (e.getKeyChar() == KeyEvent.VK_ENTER)
-				getRegisterAtServiceAction().actionPerformed(null);
+				getActionRegisterAtService().actionPerformed(null);
 		}
 
 		public void keyReleased(KeyEvent e) {
@@ -233,7 +233,7 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 					getTablePassivParts().getColumnModel().getColumn(1).setHeaderValue(new String("Name"));
 					getTablePassivParts().getColumnModel().getColumn(2).setHeaderValue(new String("Fingerprint"));
 					
-					getRegisterAtServiceAction().setEnabled(true);
+					getActionRegisterAtService().setEnabled(true);
 					getSendAction().setEnabled(true);
 					getActionSaveParticipant().setEnabled(true);
 					this.setEnabled(false);
@@ -246,7 +246,7 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 		return actionStart;
 	}
 	
-	private AbstractAction getRegisterAtServiceAction() {
+	private AbstractAction getActionRegisterAtService() {
 		if(actionregisterAtService == null) {
 			actionregisterAtService = new AbstractAction("Register at the service", null) {
 				private static final long serialVersionUID = 3416831018427667491L;
@@ -266,7 +266,7 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 		return actionregisterAtService;
 	}
 	
-	private AbstractAction getJoinWorkCycleAction() {
+	private AbstractAction getActionJoinWorkCycle() {
 		if(actionJoinWorkCycle == null) {
 			actionJoinWorkCycle = new AbstractAction("Join work cycle", null) {
 				private static final long serialVersionUID = -9050384692608513171L;
@@ -291,9 +291,9 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 				public void actionPerformed(ActionEvent evt) {
 					assocParticipant.leaveWorkCycle(assocConnection);
 					actionSend.setEnabled(false);
-					getJoinWorkCycleAction().setEnabled(true);
+					getActionJoinWorkCycle().setEnabled(true);
 					this.setEnabled(false);
-					buttonJoinWorkCycle.setAction(getJoinWorkCycleAction());
+					buttonJoinWorkCycle.setAction(getActionJoinWorkCycle());
 				}
 			};
 		}
@@ -352,8 +352,8 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 			{
 				buttonRegisterAtService = new JButton();
 				buttonRegisterAtService.setText("Register");
-				buttonRegisterAtService.setAction(getRegisterAtServiceAction());
-				getRegisterAtServiceAction().setEnabled(false);
+				buttonRegisterAtService.setAction(getActionRegisterAtService());
+				getActionRegisterAtService().setEnabled(false);
 				buttonRegisterAtService.addKeyListener(listenerRegisterAtService);
 			}
 			jPanel2Layout.setHorizontalGroup(jPanel2Layout.createSequentialGroup()
@@ -436,9 +436,9 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 			{
 				buttonJoinWorkCycle = new JButton();
 				buttonJoinWorkCycle.setText("Join work cycle");
-				buttonJoinWorkCycle.setAction(getJoinWorkCycleAction());
+				buttonJoinWorkCycle.setAction(getActionJoinWorkCycle());
 				buttonJoinWorkCycle.addKeyListener(listenerJoinWorkCycle);
-				getJoinWorkCycleAction().setEnabled(false);
+				getActionJoinWorkCycle().setEnabled(false);
 			}
 				jPanel4Layout.setHorizontalGroup(jPanel4Layout.createSequentialGroup()
 				.addContainerGap()
@@ -688,8 +688,8 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 	    			getActionQuitService().setEnabled(false);
 	    			
 	    			buttonStartClient.setAction(getStartAction());
-	    			getJoinWorkCycleAction().setEnabled(false);
-	    			buttonJoinWorkCycle.setAction(getJoinWorkCycleAction());
+	    			getActionJoinWorkCycle().setEnabled(false);
+	    			buttonJoinWorkCycle.setAction(getActionJoinWorkCycle());
 	    		}
 	    	}
 	    	// TICK
