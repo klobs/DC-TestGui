@@ -27,8 +27,6 @@ import javax.swing.JTable;
 import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import de.tu.dresden.dud.dc.Connection;
 import de.tu.dresden.dud.dc.KeyExchangeManager;
