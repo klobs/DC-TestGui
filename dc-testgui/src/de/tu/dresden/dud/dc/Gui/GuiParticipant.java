@@ -132,7 +132,7 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 
 		public void keyPressed(KeyEvent e) {
 			if (e.getKeyChar() == KeyEvent.VK_ENTER)
-				getStartAction().actionPerformed(null);
+				getActionStart().actionPerformed(null);
 		}
 
 		public void keyReleased(KeyEvent e) {
@@ -174,7 +174,7 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 
 		public void keyPressed(KeyEvent e) {
 			if (e.getKeyChar() == KeyEvent.VK_TAB) 	buttonJoinWorkCycle.requestFocus(true);
-			if (e.getKeyChar() == KeyEvent.VK_ENTER) getSendAction().actionPerformed(null);
+			if (e.getKeyChar() == KeyEvent.VK_ENTER) getActionSend().actionPerformed(null);
 		}
 
 		public void keyReleased(KeyEvent e) {
@@ -195,7 +195,7 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 		if(buttonSend == null) {
 			buttonSend = new JButton();
 			buttonSend.setText("Payload");
-			buttonSend.setAction(getSendAction());
+			buttonSend.setAction(getActionSend());
 		}
 		return buttonSend;
 	}
@@ -205,7 +205,7 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 	}
 	
 	
-	private AbstractAction getStartAction() {
+	private AbstractAction getActionStart() {
 		if(actionStart == null) {
 			actionStart = new AbstractAction("Start Participant", null) {
 				private static final long serialVersionUID = 8749319356187884901L;
@@ -234,7 +234,7 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 					getTablePassivParts().getColumnModel().getColumn(2).setHeaderValue(new String("Fingerprint"));
 					
 					getActionRegisterAtService().setEnabled(true);
-					getSendAction().setEnabled(true);
+					getActionSend().setEnabled(true);
 					getActionSaveParticipant().setEnabled(true);
 					this.setEnabled(false);
 					
@@ -319,7 +319,7 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 			{
 				buttonStartClient = new JButton();
 				buttonStartClient.setText("Start");
-				buttonStartClient.setAction(getStartAction());
+				buttonStartClient.setAction(getActionStart());
 			}
 			jPanel1.setFocusCycleRoot(true);
 			jPanel1Layout.setHorizontalGroup(jPanel1Layout.createSequentialGroup()
@@ -595,7 +595,7 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 		return listSums;
 	}
 	
-	private AbstractAction getSendAction() {
+	private AbstractAction getActionSend() {
 		if(actionSend == null) {
 			actionSend = new AbstractAction("Payload", null) {
 				private static final long serialVersionUID = 8620905350292023918L;
@@ -661,7 +661,7 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 	    		labelVersion.setText(String.valueOf(m.getVersion()));
 	    		labelParticipants.setText(String.valueOf(m.getParticipantsCount()));
 	    		
-	    		getStartAction().setEnabled(false);
+	    		getActionStart().setEnabled(false);
 	    		getActionQuitService().setEnabled(true);
 	    		
 	    		buttonStartClient.setAction(getActionQuitService());
@@ -684,10 +684,10 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 	    		ManagementMessageKThxBye m = (ManagementMessageKThxBye) arg;
 	    		
 	    		if (m.getQuitOK() == ManagementMessageKThxBye.QUITOK_ALL_OK){
-	    			getStartAction().setEnabled(true);
+	    			getActionStart().setEnabled(true);
 	    			getActionQuitService().setEnabled(false);
 	    			
-	    			buttonStartClient.setAction(getStartAction());
+	    			buttonStartClient.setAction(getActionStart());
 	    			getActionJoinWorkCycle().setEnabled(false);
 	    			buttonJoinWorkCycle.setAction(getActionJoinWorkCycle());
 	    		}
