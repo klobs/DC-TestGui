@@ -25,7 +25,7 @@ public class DCService {
 
 	    BasicConfigurator.configure();
 		
-	    Logger.getRootLogger().setLevel(Level.DEBUG);
+	    Logger.getRootLogger().setLevel(Level.INFO);
 		
 		Gui mainWindow = new Gui();
 		mainWindow.setVisible(true);
