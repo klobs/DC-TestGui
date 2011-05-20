@@ -5,8 +5,6 @@
 package de.tu.dresden.dud.dc.Gui;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Arrays;
@@ -580,7 +578,6 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 										new String[] { "Hier werden die Nachrichten fuer die kommenden Runden eingetragen." });
 			listMessages = new JList();
 			listMessages.setModel(modelListMessages);
-			listMessages.setPreferredSize(new java.awt.Dimension(268, 50));
 		}
 		return listMessages;
 	}
