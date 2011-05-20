@@ -5,6 +5,8 @@
 package de.tu.dresden.dud.dc.Gui;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Arrays;
@@ -16,6 +18,7 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.ListSelectionModel;
@@ -112,6 +115,8 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 	private JTextField textName;
 	private Participant assocParticipant;
 	private JButton buttonExchangeKeyPassive;
+	private AbstractAction actionDisplayReservations;
+	private JCheckBox checkBoxDisplayReservations;
 	private AbstractAction actionQuitService;
 	private AbstractAction actionExchangeKeyPassive;
 	private JTable tableActiveParts;
@@ -121,6 +126,7 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 	private JLabel labelWorkCycle;
 	private JLabel jLabel9;
 	private JScrollPane jScrollPane2;
+	private boolean displayReservations = false;
 
 	
 	
@@ -443,37 +449,35 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 				jPanel4Layout.setHorizontalGroup(jPanel4Layout.createSequentialGroup()
 				.addContainerGap()
 				.addGroup(jPanel4Layout.createParallelGroup()
-				    .addGroup(GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-				        .addComponent(buttonJoinWorkCycle, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				    .addGroup(jPanel4Layout.createSequentialGroup()
+				        .addGroup(jPanel4Layout.createParallelGroup()
+				            .addComponent(getCheckBoxDisplayReservations(), GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+				            .addComponent(buttonJoinWorkCycle, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+				        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 6, GroupLayout.PREFERRED_SIZE)
 				        .addGroup(jPanel4Layout.createParallelGroup()
 				            .addGroup(GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
 				                .addComponent(getJLabel9(), GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
-				                .addGap(55))
+				                .addGap(41))
 				            .addComponent(getJLabel8(), GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
 				        .addGroup(jPanel4Layout.createParallelGroup()
-				            .addComponent(getLabelWorkCycle(), GroupLayout.Alignment.LEADING, 0, 121, Short.MAX_VALUE)
-				            .addComponent(getLabelTick(), GroupLayout.Alignment.LEADING, 0, 121, Short.MAX_VALUE)))
-				    .addGroup(GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-				        .addPreferredGap(buttonJoinWorkCycle, getJScrollPane2(), LayoutStyle.ComponentPlacement.INDENT)
-				        .addComponent(getJScrollPane2(), 0, 375, Short.MAX_VALUE)))
+				            .addComponent(getLabelWorkCycle(), GroupLayout.Alignment.LEADING, 0, 17, Short.MAX_VALUE)
+				            .addGroup(GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+				                .addPreferredGap(getLabelWorkCycle(), getLabelTick(), LayoutStyle.ComponentPlacement.INDENT)
+				                .addComponent(getLabelTick(), 0, 11, Short.MAX_VALUE))))
+				    .addComponent(getJScrollPane2(), GroupLayout.Alignment.LEADING, 0, 281, Short.MAX_VALUE))
 				.addContainerGap());
 				jPanel4Layout.setVerticalGroup(jPanel4Layout.createSequentialGroup()
-				.addGroup(jPanel4Layout.createParallelGroup()
-				    .addGroup(jPanel4Layout.createSequentialGroup()
-				        .addGroup(jPanel4Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				            .addComponent(getLabelWorkCycle(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-				            .addComponent(getJLabel9(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-				        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				        .addGroup(jPanel4Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				            .addComponent(getJLabel8(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				            .addComponent(getLabelTick(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)))
-				    .addGroup(GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-				        .addGap(12)
-				        .addComponent(buttonJoinWorkCycle, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)))
-				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				.addComponent(getJScrollPane2(), 0, 400, Short.MAX_VALUE)
-				.addContainerGap(22, 22));
+				.addGroup(jPanel4Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+				    .addComponent(buttonJoinWorkCycle, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(getLabelWorkCycle(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(getJLabel9(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGroup(jPanel4Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+				    .addComponent(getCheckBoxDisplayReservations(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(getLabelTick(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(getJLabel8(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+				.addComponent(getJScrollPane2(), 0, 272, Short.MAX_VALUE)
+				.addContainerGap());
 		}
 		return jPanel4;
 	}
@@ -702,9 +706,10 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 	    	else if (arg instanceof ManagementMessageAdded){
 	    		ManagementMessageAdded m = (ManagementMessageAdded) arg;
 	    		if(assocConnection.getAssociatedWorkCycleManager() != null){
-	    		if (assocConnection.getAssociatedWorkCycleManager().getCurrentWorkCycle().getCurrentPhase() == WorkCycle.WC_RESERVATION)
-	    		modelListSums.addElement("R:" + m.getWorkCycleNumber() + ", SR:"+ m.getRoundNumber() + "(reservation): "+ Arrays.toString(m.getPayload()) );
+	    		if (displayReservations && assocConnection.getAssociatedWorkCycleManager().getCurrentWorkCycle().getCurrentPhase() == WorkCycle.WC_RESERVATION)
+	    			modelListSums.addElement("R:" + m.getWorkCycleNumber() + ", SR:"+ m.getRoundNumber() + "(reservation): "+ Arrays.toString(m.getPayload()) );
 	    		else /* if (assocConnection.getAssociatedWorkCycleManager().getCurrentWorkCycle().getCurrentPhase() == WorkCycle.WC_SENDING)  TODO remove this with a better save model?*/
+	    			if (assocConnection.getAssociatedWorkCycleManager().getCurrentWorkCycle().getCurrentPhase() != WorkCycle.WC_RESERVATION)
 		    		modelListSums.addElement("R:" + m.getWorkCycleNumber() + ", SR:"+ m.getRoundNumber() + ": " + new String(m.getPayload()) +"/"+ Arrays.toString(m.getPayload()));
 	    		}
 	    	}
@@ -921,6 +926,31 @@ public class GuiParticipant extends javax.swing.JPanel implements Observer {
 			actionQuitService.setEnabled(false);
 		}
 		return actionQuitService;
+	}
+	
+	private JCheckBox getCheckBoxDisplayReservations() {
+		if(checkBoxDisplayReservations == null) {
+			checkBoxDisplayReservations = new JCheckBox();
+			checkBoxDisplayReservations.setText("Display Reservations");
+			checkBoxDisplayReservations.setAction(getActionDisplayReservations());
+		}
+		return checkBoxDisplayReservations;
+	}
+	
+	private AbstractAction getActionDisplayReservations() {
+		if(actionDisplayReservations == null) {
+			actionDisplayReservations = new AbstractAction("Display Reservations", null) {
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 5873955737492088568L;
+
+				public void actionPerformed(ActionEvent evt) {
+					displayReservations = !displayReservations;
+				}
+			};
+		}
+		return actionDisplayReservations;
 	}
 
 }
