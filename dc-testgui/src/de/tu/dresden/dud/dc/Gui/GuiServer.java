@@ -63,6 +63,7 @@ public class GuiServer extends javax.swing.JPanel implements Observer{
 	private DefaultComboBoxModel outputListModel;
 	private JButton toggleServerButton;
 	private AbstractAction actionToggleServer;
+	private JRadioButton jRadioButtonTickSleep10ms;
 	private JScrollPane jScrollPane2;
 	private JTable tableActiveParts;
 	private JScrollPane jScrollPane1;
@@ -71,10 +72,10 @@ public class GuiServer extends javax.swing.JPanel implements Observer{
 	private JRadioButton jRadioButtonTimeout1000;
 	private JRadioButton jRadioButtonTimeout0;
 	private JPanel jPanelTimeout;
-	private JRadioButton jRadioButtonTickSleep5;
+	private JRadioButton jRadioButtonTickSleep5s;
 	private JPanel jPanel3;
-	private JRadioButton jRadioButtonTickSleep20;
-	private JRadioButton jRadioButtonTickSleep1;
+	private JRadioButton jRadioButtonTickSleep20s;
+	private JRadioButton jRadioButtonTickSleep1s;
 	private JPanel jPanelSleepTicks;
 	private JRadioButton jRadioButtonTickSleep0;
 	private JPanel jPanel1;
@@ -138,14 +139,16 @@ public class GuiServer extends javax.swing.JPanel implements Observer{
 				});
 				
 				buttonGroupTick.add(getJRadioButtonTickSleep0());
-				buttonGroupTick.add(getJRadioButtonTickSleep1());
-				buttonGroupTick.add(getJRadioButtonTickSleep5());
-				buttonGroupTick.add(getJRadioButtonTickSleep20());
+				buttonGroupTick.add(getJRadioButtonTickSleep10ms());
+				buttonGroupTick.add(getJRadioButtonTickSleep1s());
+				buttonGroupTick.add(getJRadioButtonTickSleep5s());
+				buttonGroupTick.add(getJRadioButtonTickSleep20s());
 
 				getJRadioButtonTickSleep0().addActionListener(actionTickButton);
-				getJRadioButtonTickSleep1().addActionListener(actionTickButton);
-				getJRadioButtonTickSleep5().addActionListener(actionTickButton);
-				getJRadioButtonTickSleep20().addActionListener(actionTickButton);
+				getJRadioButtonTickSleep10ms().addActionListener(actionTickButton);
+				getJRadioButtonTickSleep1s().addActionListener(actionTickButton);
+				getJRadioButtonTickSleep5s().addActionListener(actionTickButton);
+				getJRadioButtonTickSleep20s().addActionListener(actionTickButton);
 				
 				buttonGroupTimeout.add(getJRadioButtonTimeout0());
 				buttonGroupTimeout.add(getJRadioButtonTimeout1s());
@@ -317,18 +320,26 @@ public class GuiServer extends javax.swing.JPanel implements Observer{
 			jPanelSleepTicks.setLayout(jPanel2Layout);
 			jPanelSleepTicks.setBorder(BorderFactory.createTitledBorder(null, "Sleep during ticks", TitledBorder.LEADING, TitledBorder.DEFAULT_POSITION));
 			jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup()
-				.addComponent(getJRadioButtonTickSleep0(), GroupLayout.Alignment.LEADING, 0, 143, Short.MAX_VALUE)
-				.addComponent(getJRadioButtonTickSleep1(), GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
-				.addComponent(getJRadioButtonTickSleep20(), GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
 				.addGroup(GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-				    .addComponent(getJRadioButtonTickSleep5(), GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(getJRadioButtonTickSleep5s(), GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
+				    .addGap(0, 22, Short.MAX_VALUE))
+				.addComponent(getJRadioButtonTickSleep0(), GroupLayout.Alignment.LEADING, 0, 145, Short.MAX_VALUE)
+				.addComponent(getJRadioButtonTickSleep1s(), GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+				.addComponent(getJRadioButtonTickSleep20s(), GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+				.addGroup(GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+				    .addComponent(getJRadioButtonTickSleep10ms(), GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
 				    .addGap(0, 20, Short.MAX_VALUE)));
 			jPanel2Layout.setVerticalGroup(jPanel2Layout.createSequentialGroup()
 				.addComponent(getJRadioButtonTickSleep0(), GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-				.addComponent(getJRadioButtonTickSleep1(), GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-				.addComponent(getJRadioButtonTickSleep5(), GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				.addComponent(getJRadioButtonTickSleep20(), GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-				.addContainerGap(17, Short.MAX_VALUE));
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				.addComponent(getJRadioButtonTickSleep10ms(), GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, Short.MAX_VALUE)
+				.addComponent(getJRadioButtonTickSleep1s(), GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, GroupLayout.PREFERRED_SIZE)
+				.addComponent(getJRadioButtonTickSleep5s(), GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				.addComponent(getJRadioButtonTickSleep20s(), GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+				.addContainerGap());
 		}
 		return jPanelSleepTicks;
 	}
@@ -341,29 +352,29 @@ public class GuiServer extends javax.swing.JPanel implements Observer{
 		return jRadioButtonTickSleep0;
 	}
 
-	private JRadioButton getJRadioButtonTickSleep1() {
-		if(jRadioButtonTickSleep1 == null) {
-			jRadioButtonTickSleep1 = new JRadioButton();
-			jRadioButtonTickSleep1.setText("1 sec");
-			jRadioButtonTickSleep1.setSelected(true);
+	private JRadioButton getJRadioButtonTickSleep1s() {
+		if(jRadioButtonTickSleep1s == null) {
+			jRadioButtonTickSleep1s = new JRadioButton();
+			jRadioButtonTickSleep1s.setText("1 sec");
+			jRadioButtonTickSleep1s.setSelected(true);
 		}
-		return jRadioButtonTickSleep1;
+		return jRadioButtonTickSleep1s;
 	}
 	
-	private JRadioButton getJRadioButtonTickSleep20() {
-		if(jRadioButtonTickSleep20 == null) {
-			jRadioButtonTickSleep20 = new JRadioButton();
-			jRadioButtonTickSleep20.setText("20 sec");
+	private JRadioButton getJRadioButtonTickSleep20s() {
+		if(jRadioButtonTickSleep20s == null) {
+			jRadioButtonTickSleep20s = new JRadioButton();
+			jRadioButtonTickSleep20s.setText("20 sec");
 		}
-		return jRadioButtonTickSleep20;
+		return jRadioButtonTickSleep20s;
 	}
 	
-	private JRadioButton getJRadioButtonTickSleep5() {
-		if(jRadioButtonTickSleep5 == null) {
-			jRadioButtonTickSleep5 = new JRadioButton();
-			jRadioButtonTickSleep5.setText("5 sec");
+	private JRadioButton getJRadioButtonTickSleep5s() {
+		if(jRadioButtonTickSleep5s == null) {
+			jRadioButtonTickSleep5s = new JRadioButton();
+			jRadioButtonTickSleep5s.setText("5 sec");
 		}
-		return jRadioButtonTickSleep5;
+		return jRadioButtonTickSleep5s;
 	}
 
 	private JPanel getJPanel3() {
@@ -409,9 +420,10 @@ public class GuiServer extends javax.swing.JPanel implements Observer{
 
 	private int getTickTimer(){
 		if (jRadioButtonTickSleep0.isSelected()) return 0;
-		if (jRadioButtonTickSleep1.isSelected()) return 1000;
-		if (jRadioButtonTickSleep5.isSelected()) return 5000;
-		if (jRadioButtonTickSleep20.isSelected()) return 20000;
+		if (jRadioButtonTickSleep10ms.isSelected()) return 10;
+		if (jRadioButtonTickSleep1s.isSelected()) return 1000;
+		if (jRadioButtonTickSleep5s.isSelected()) return 5000;
+		if (jRadioButtonTickSleep20s.isSelected()) return 20000;
 		return 1000;
 	}
 	
@@ -501,5 +513,13 @@ public class GuiServer extends javax.swing.JPanel implements Observer{
 			jScrollPane2.setViewportView(getTableActiveParts());
 		}
 		return jScrollPane2;
+	}
+	
+	private JRadioButton getJRadioButtonTickSleep10ms() {
+		if(jRadioButtonTickSleep10ms == null) {
+			jRadioButtonTickSleep10ms = new JRadioButton();
+			jRadioButtonTickSleep10ms.setText("10 ms");
+		}
+		return jRadioButtonTickSleep10ms;
 	}
 }
