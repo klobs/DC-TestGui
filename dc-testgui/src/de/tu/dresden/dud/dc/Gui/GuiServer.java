@@ -285,6 +285,7 @@ public class GuiServer extends javax.swing.JPanel implements Observer{
 		if(jCheckBoxVariableMessageLength == null) {
 			jCheckBoxVariableMessageLength = new JCheckBox();
 			jCheckBoxVariableMessageLength.setText("Allow variable sized messages");
+			jCheckBoxVariableMessageLength.setSelected(true);
 		}
 		return jCheckBoxVariableMessageLength;
 	}
