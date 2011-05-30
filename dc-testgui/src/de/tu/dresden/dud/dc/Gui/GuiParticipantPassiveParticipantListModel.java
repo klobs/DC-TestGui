@@ -23,12 +23,10 @@ public class GuiParticipantPassiveParticipantListModel extends
 		participantManager.addObserver(this);
 	}
 	
-
 	@Override
 	public int getColumnCount() {
 		return 3;
 	}
-
 
 	public String getIDForRow(int i){
 		if (i >= 0 && i < participantManager.getPassivePartMgmtInfo().size())
@@ -54,8 +52,6 @@ public class GuiParticipantPassiveParticipantListModel extends
 			return null;
 		}
 	}
-
-	
 	
 	@Override
 	public void update(Observable o, Object arg) {

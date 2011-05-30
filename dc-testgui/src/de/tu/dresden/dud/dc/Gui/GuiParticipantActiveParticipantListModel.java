@@ -52,14 +52,16 @@ public class GuiParticipantActiveParticipantListModel extends AbstractTableModel
 			return null;
 		}
 	}
-
 	
 	@Override
 	public void update(Observable o, Object arg) {
 		switch (((Integer) arg).intValue()){
 		case ParticipantManager.PARTMNG_INTERVAL_ADDED_ACTIVE:
+			if (getRowCount() != 0)
+				fireTableRowsInserted(0, getRowCount());
 		case ParticipantManager.PARTMNG_INTERVAL_CHANGED_ACTIVE:
-			fireTableRowsUpdated(0, getRowCount());
+			if (getRowCount() != 0)
+				fireTableRowsUpdated(0, getRowCount());
 			break;
 		}
 	}
